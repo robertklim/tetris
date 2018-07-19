@@ -12,6 +12,14 @@ const matrix = [
     [0, 1, 0],
 ];
 
+function createMatrix(w, h) {
+    const matrix = [];
+    while (h--) {
+        matrix.push(new Array(w).fill(0));
+    }
+    return matrix;
+}
+
 function draw() {
     context.fillStyle = '#000';
     context.fillRect(0, 0, canvas.clientWidth, canvas.height);
@@ -25,6 +33,16 @@ function drawShape(matrix, offset) {
             if (value !== 0) {
                 context.fillStyle = 'red';
                 context.fillRect(x + offset.x, y + offset.y, 1, 1);
+            }
+        });
+    });
+}
+
+function merge(board, player) {
+    player.matrix.forEach((row, y) => {
+        row.forEach((value, x) => {
+            if (value !== 0) {
+                board[y + player.pos.y][x + player.pos.x] = value;
             }
         });
     });
@@ -53,6 +71,8 @@ function update(time = 0) {
     draw();
     requestAnimationFrame(update);
 }
+
+const board = createMatrix(12, 20);
 
 const player = {
     pos: {x: 5, y: 5},
