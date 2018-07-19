@@ -17,6 +17,10 @@ const matrix = [
     [0, 1, 0],
 ];
 
+function draw() {
+    drawShape(player.matrix, player.pos);
+}
+
 function drawShape(matrix, offset) {
     matrix.forEach((row, y) => {
         row.forEach((value, x) => {
@@ -28,4 +32,14 @@ function drawShape(matrix, offset) {
     });
 }
 
-drawShape(matrix, {x: 5, y: 5});
+function update() {
+    draw();
+    requestAnimationFrame(update);
+}
+
+const player = {
+    pos: {x: 5, y: 5},
+    matrix: matrix,
+}
+
+update();
